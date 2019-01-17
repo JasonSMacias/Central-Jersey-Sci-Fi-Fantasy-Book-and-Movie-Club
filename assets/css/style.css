@@ -60,12 +60,24 @@ body {
   max-width: 68%;
   background-color: rgb(0, 0, 0);
   color: white;
+<<<<<<< HEAD
   font-size: 14px;
 >>>>>>> d97e9e6836dbcbb33a488d805cb5a9b4ec5a55cd
+=======
+  font-size: 20px;
+  overflow: auto;
+>>>>>>> 6a23718d6483c27369824ca3cf9a9408309ad2fb
 }
 
 /* Jordan */
+/* Charity */
+#pagesPerDay,
+#timeTilMtg {
+  color: red;
+  text-emphasis: bold;
+}
 
+/* Charity */
 /* priyesh */
 
 .outline {
@@ -79,17 +91,28 @@ body {
 
 /* Logos*/
 .logoimg {
-  height: 180%;
-  width: 150%;
+  height: 28vh;
+  width: 39vh;
 }
 
 .grimg {
   height: 30px;
+  width: 150px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
 }
 
 .muimg {
   height: 45px;
-width: 100px;
+  width: 100px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
 }
 
 /* -------setting carousel to set height */
@@ -134,6 +157,15 @@ width: 100px;
   height: 30vh;
   margin-top: 15%;
   margin-right: 0%;
+  overflow: hidden;
+
+
+}
+
+.google-cover-images {
+  height: 100%;
+  width: 100%;
+  object-fit: scale-down;
 }
 
 
@@ -168,46 +200,55 @@ width: 100px;
 /* ---------------Start Neon Glow Priyesh----------------------------------- */
 .title {
   font-family: 'Orbitron', sans-serif;
-  font-size: 35px;
+  font-size: 50px;
   color: #fff;
   text-align: center;
   -webkit-animation: glow 1s ease-in-out infinite alternate;
   -moz-animation: glow 1s ease-in-out infinite alternate;
   animation: glow 1s ease-in-out infinite alternate;
 }
+
 /* Start of background edit */
 @keyframes move-background {
   from {
     -webkit-transform: translate3d(0px, 0px, 0px);
   }
+
   to {
     -webkit-transform: translate3d(1000px, 0px, 0px);
   }
 }
+
 @-webkit-keyframes move-background {
   from {
     -webkit-transform: translate3d(0px, 0px, 0px);
   }
+
   to {
     -webkit-transform: translate3d(1000px, 0px, 0px);
   }
 }
+
 @-moz-keyframes move-background {
   from {
     -webkit-transform: translate3d(0px, 0px, 0px);
   }
+
   to {
     -webkit-transform: translate3d(1000px, 0px, 0px);
   }
 }
+
 @-webkit-keyframes move-background {
   from {
     -webkit-transform: translate3d(0px, 0px, 0px);
   }
+
   to {
     -webkit-transform: translate3d(1000px, 0px, 0px);
   }
 }
+
 .background-container {
   position: fixed;
   top: 0;

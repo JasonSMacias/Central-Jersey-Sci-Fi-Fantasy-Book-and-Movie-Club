@@ -34,8 +34,7 @@ $(document).ready(function () {
       $("#iDB-preview").html("Information on the book we are currently reading:<br>")
       if (response.book.rating) {
         $("#iDB-preview").append(`iDreamBooks Rating: ${response.book.rating}%<br><br>`);
-      }
-      else {
+      } else {
         $("#iDB-preview").append("Sorry, iDreamBooks has not yet rated this book.<br><br>");
       }
       if (response.book.critic_reviews[0]) {
@@ -47,8 +46,7 @@ $(document).ready(function () {
         $("#iDB-preview").append(`<br>Source: ${response.book.critic_reviews[0].source}`);
         var reviewLink = response.book.critic_reviews[0].review_link;
         $("#iDB-preview").append($("<br><a target='_blank' href='" + reviewLink + "'>Click here for the full review</a>"));
-      }
-      else {
+      } else {
         $("#iDB-preview").append("Sorry, iDreamBooks does not yet have any critic reviews of this book on file");
       }
       if (response.book.critic_reviews[1]) {
@@ -86,8 +84,7 @@ $(document).ready(function () {
       $("#iDB-preview-upcoming").html("Information on the book we are reading next:<br>");
       if (response.book.rating) {
         $("#iDB-preview-upcoming").append(`iDreamBooks Rating: ${response.book.rating}%<br><br>`);
-      }
-      else {
+      } else {
         $("#iDB-preview-upcoming").append("Sorry, iDreamBooks has not yet rated this book.<br><br>");
       }
       if (response.book.critic_reviews[0]) {
@@ -99,8 +96,7 @@ $(document).ready(function () {
         $("#iDB-preview-upcoming").append(`<br>Source: ${response.book.critic_reviews[0].source}`);
         var reviewLink = response.book.critic_reviews[0].review_link;
         $("#iDB-preview-upcoming").append($("<br><a target='_blank' href='" + reviewLink + "'>Click here for the full review</a>"));
-      }
-      else {
+      } else {
         $("#iDB-preview-upcoming").append("Sorry, iDreamBooks does not yet have any critic reviews of this book on file");
       }
       if (response.book.critic_reviews[1]) {
@@ -135,8 +131,7 @@ $(document).ready(function () {
       $("#iDB-preview-recent").html("Information on the last book we read:<br>")
       if (response.book.rating) {
         $("#iDB-preview-recent").append(`iDreamBooks Rating: ${response.book.rating}%<br><br>`);
-      }
-      else {
+      } else {
         $("#iDB-preview-recent").append("Sorry, iDreamBooks has not yet rated this book.<br><br>");
       }
       if (response.book.critic_reviews[0]) {
@@ -182,8 +177,7 @@ $(document).ready(function () {
       $("#iDB-preview-wayback").html("Information on the book we read two months ago:<br>");
       if (response.book.rating) {
         $("#iDB-preview-wayback").append(`iDreamBooks Rating: ${response.book.rating}%<br><br>`);
-      }
-      else {
+      } else {
         $("#iDB-preview-wayback").append("Sorry, iDreamBooks has not yet rated this book.<br><br>");
       }
       if (response.book.critic_reviews[0]) {
@@ -195,8 +189,7 @@ $(document).ready(function () {
         $("#iDB-preview-wayback").append(`<br>Source: ${response.book.critic_reviews[0].source}`);
         var reviewLink = response.book.critic_reviews[0].review_link;
         $("#iDB-preview-wayback").append($("<br><a target='_blank' href='" + reviewLink + "'>Click here for the full review</a>"));
-      }
-      else {
+      } else {
         $("#iDB-preview-wayback").append("Sorry, iDreamBooks does not yet have any critic reviews of this book on file");
       }
       if (response.book.critic_reviews[1]) {
@@ -279,6 +272,7 @@ $(document).ready(function () {
 
   };
 
+
   // function to convert spaces to pluses within the string parameter
   function plusFunction(withSpaces) {
     var withPluses = withSpaces.replace(/ /g, "+");
@@ -306,25 +300,33 @@ $(document).ready(function () {
     time = meetings.results[0].time;
     console.log("This is the time in unix " + time);
     // Sending the time, the date of the next meeting to waitForTime function
-    waitForTime(time);
 
     console.log("interior Ajax meetupName value " + meetupName);
-    snipFunction(meetupName);
-    snipFunction2(meetupName2);
+    waitForTime(time, meetupName, meetupName2);
   });
 
 
   // variables
   var googleISBN = "";
   var googleISBN2 = "";
+  var googleISBN3 = "";
+  var googleISBN4 = "";
   var googleViewability = "";
   var googleViewability2 = "";
+  var googleViewability3 = "";
+  var googleViewability4 = "";
   var googleVolume = {};
   var googleVolume2 = {};
+  var googleVolume3 = {};
+  var googleVolume4 = {};
   var googleImageURL = "";
   var googleImageURL2 = "";
+  var googleImageURL3 = "";
+  var googleImageURL4 = "";
   var googlePagination = "";
   var googlePagination2 = "";
+  var googlePagination3 = "";
+  var googlePagination4 = "";
 
   function googleBooks() {
     var googleBooksAPI = "AIzaSyCheolDq79sZudYdTX1G6FspSWLpQXDEiI";
@@ -337,25 +339,24 @@ $(document).ready(function () {
       console.log("Google Books Response");
       console.log(response);
       googleVolume = response;
-      googleISBN = response.items[0].volumeInfo.industryIdentifiers[1].identifier;
+      googleISBN = response.items[0].volumeInfo.industryIdentifiers[0].identifier;
       googleViewability = response.items[0].accessInfo.viewability;
       console.log(googleISBN);
-      console.log("viewability: "+googleViewability);
+      console.log("viewability: " + googleViewability);
       googleImageURL = response.items[0].volumeInfo.imageLinks.thumbnail;
       console.log(googleImageURL);
       googlePagination = response.items[0].volumeInfo.pageCount;
+      readPerDay(googlePagination);
       console.log(googlePagination);
 
-      if (googleViewability==="NO_PAGES"){
+      if (googleViewability === "NO_PAGES") {
         // href without isbn if no preview is available
-        var coverImageTag = `<img src="${googleImageURL}" alt="cover image">`;
-        $("#google-preview").append(`<a href="./preview.html">${coverImageTag}<a><br /><p>Click cover for<br />preview</p>`);
+        var coverImageTag = `<img class = "google-cover-images" src="${googleImageURL}" alt="cover image">`;
+        $("#google-preview").append(`<a class="google-cover-image-links" href="./preview.html">${coverImageTag}<a>`);
 
-      }
-
-      else {
-        var coverImageTag = `<img src="${googleImageURL}" alt="cover image">`;
-        $("#google-preview").append(`<a href="./preview.html?isbn=${googleISBN}">${coverImageTag}<a><br /><p>Click cover for<br />preview</p>`);
+      } else {
+        var coverImageTag = `<img class = "google-cover-images" src="${googleImageURL}" alt="cover image">`;
+        $("#google-preview").append(`<a class="google-cover-image-links" href="./preview.html?isbn=${googleISBN}">${coverImageTag}<a>`);
 
       };
 
@@ -373,79 +374,75 @@ $(document).ready(function () {
       console.log("Google Books 2 Response");
       console.log(response);
       googleVolume2 = response;
-      googleISBN2 = response.items[1].volumeInfo.industryIdentifiers[1].identifier;
+      googleISBN2 = response.items[0].volumeInfo.industryIdentifiers[0].identifier;
       googleViewability2 = response.items[0].accessInfo.viewability;
       console.log(googleISBN2);
-      console.log("viewability2: "+googleViewability2);
-      googleImageURL2 = response.items[1].volumeInfo.imageLinks.thumbnail;
+      console.log("viewability2: " + googleViewability2);
+      googleImageURL2 = response.items[0].volumeInfo.imageLinks.thumbnail;
       console.log(googleImageURL2);
-      googlePagination2 = response.items[1].volumeInfo.pageCount;
+      googlePagination2 = response.items[0].volumeInfo.pageCount;
       console.log(googlePagination2);
-      var coverImageTag = `<img src="${googleImageURL2}" alt="cover image">`;
-      $("#google-preview-upcoming").append(`<a href="./preview.html?isbn=${googleISBN2}">${coverImageTag}<a><br /><p>Click cover for<br />preview</p>`);
+      var coverImageTag = `<img class = "google-cover-images" src="${googleImageURL2}" alt="cover image">`;
+      $("#google-preview-upcoming").append(`<a class="google-cover-image-links" href="./preview.html?isbn=${googleISBN2}">${coverImageTag}<a>`);
     });
   };
 
+  function googleBooks3() {
+    var googleBooksAPI = "AIzaSyCheolDq79sZudYdTX1G6FspSWLpQXDEiI";
+    var googleBooksURL = "https://www.googleapis.com/books/v1/volumes?q=" + pastBooks[0].title + pastBooks[0].author + "&key=" + googleBooksAPI;
 
-  // <!-- Jason end -->
+    $.ajax({
+      url: googleBooksURL,
+      method: "GET"
+    }).then(function (response) {
+      console.log("Google Books 3 Response");
+      console.log(response);
+      googleVolume3 = response;
+      googleISBN3 = response.items[0].volumeInfo.industryIdentifiers[0].identifier;
+      googleViewability3 = response.items[0].accessInfo.viewability;
+      console.log(googleISBN3);
+      console.log("viewability3: " + googleViewability3);
+      googleImageURL3 = response.items[0].volumeInfo.imageLinks.thumbnail;
+      console.log(googleImageURL3);
+      googlePagination3 = response.items[0].volumeInfo.pageCount;
+      console.log(googlePagination3);
+      var coverImageTag = `<img class = "google-cover-images" src="${googleImageURL3}" alt="cover image">`;
+      $("#google-preview-recent").append(`<a class="google-cover-image-links" href="./preview.html?isbn=${googleISBN3}">${coverImageTag}<a>`);
+    });
+  };
 
-  // <!-- Jordan-->
+  function googleBooks4() {
+    var googleBooksAPI = "AIzaSyCheolDq79sZudYdTX1G6FspSWLpQXDEiI";
+    var googleBooksURL = "https://www.googleapis.com/books/v1/volumes?q=" + pastBooks[1].title + pastBooks[1].author + "&key=" + googleBooksAPI;
+
+    $.ajax({
+      url: googleBooksURL,
+      method: "GET"
+    }).then(function (response) {
+      console.log("Google Books 4 Response");
+      console.log(response);
+      googleVolume4 = response;
+      googleISBN4 = response.items[0].volumeInfo.industryIdentifiers[0].identifier;
+      googleViewability4 = response.items[0].accessInfo.viewability;
+      console.log(googleISBN4);
+      console.log("viewability4: " + googleViewability4);
+      googleImageURL4 = response.items[0].volumeInfo.imageLinks.thumbnail;
+      console.log(googleImageURL4);
+      googlePagination4 = response.items[0].volumeInfo.pageCount;
+      console.log(googlePagination4);
+      var coverImageTag = `<img class = "google-cover-images" src="${googleImageURL4}" alt="cover image">`;
+      $("#google-preview-wayback").append(`<a class="google-cover-image-links" href="./preview.html?isbn=${googleISBN4}">${coverImageTag}<a>`);
+    });
+  };
+
+  googleBooks3();
+  googleBooks4();
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  // <!-- Jordan-->
-
-
-
-
-
-
-
-
-
-
-
-
-  // <!-- Jordan-->
 
   // <!-- Charity -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // <!-- Jordan-->
-
-  // <!-- Charity -->
-
-  function waitForTime(time) {
+  function waitForTime(time, meetupName, meetupName2) {
     console.log("waitForTime received ", time);
     var convertedTime = moment(time).format('MMMM Do YYYY, h:mm:ss a');
     console.log("This is converted time " + convertedTime);
@@ -454,13 +451,31 @@ $(document).ready(function () {
 
     var currentTime = moment();
     // Set a variable for how long until book meeting happens 
-    var tDiff = moment(time).fromNow();
-    console.log(tDiff);
-
-    console.log('first time and time: ' + time)
+    tDiff = moment(time).fromNow();
+    console.log("Sending tDiff to readPerDay " + tDiff);
+    console.log("calling readPerDay with tDiff " + tDiff);
     // Populate the current bookMtg data in html, just pop it in
-    $("#timeTilMtg").append("The CNJ Scifi-Fantasy Book and Movie Club next meeting will be " + tDiff);
+    $("#timeTilMtg").append(tDiff);
+
+    console.log("interior Ajax meetupName value " + meetupName);
+    snipFunction(meetupName);
+    snipFunction2(meetupName2);
   }
+
+  // function to define the pages per day to read in order to be ready for the book club meeting
+  function readPerDay(googlePagination) {
+
+    tDiffNum = tDiff.split(" ")[1];
+
+    tDiffNum = parseInt(tDiff.split(" ")[1]);
+    googlePagination = parseInt(googlePagination);
+
+    var pgesPerDay = (googlePagination / tDiffNum).toFixed(2);
+    console.log("The reader should read " + pgesPerDay + " pages per day");
+
+    $("#pagesPerDay").append(pgesPerDay);
+  }
+
   // <!-- Charity -->
 
 
@@ -535,7 +550,7 @@ My name is Ani and I'm a Web Developer from Yerevan. Here you will find some of 
 
 ===============================================================
 */
-function init(){
+function init() {
 
   var styles = ["animate4", "animate1", "animate2", "animate3"];
   var scales = ["scale1", "scale2", "scale3"];
@@ -551,14 +566,14 @@ function init(){
   var heightWindow = window.innerHeight;
 
   for (var i = 0; i < count; i++) {
-    stars += "<span class='star " + styles[rand(0, 4)] + " " + opacities[rand(0, 6)] + " "
-    + scales[rand(0, 3)] + "' style='animation-delay: ." + rand(0, 9)+ "s; left: "
-    + rand(0, widthWindow) + "px; top: " + rand(0, heightWindow) + "px;'></span>";
+    stars += "<span class='star " + styles[rand(0, 4)] + " " + opacities[rand(0, 6)] + " " +
+      scales[rand(0, 3)] + "' style='animation-delay: ." + rand(0, 9) + "s; left: " +
+      rand(0, widthWindow) + "px; top: " + rand(0, heightWindow) + "px;'></span>";
   }
 
   document.querySelector(".sky").innerHTML = stars;
 
-  }
+}
 
 window.onload = init;
 window.onresize = init;
