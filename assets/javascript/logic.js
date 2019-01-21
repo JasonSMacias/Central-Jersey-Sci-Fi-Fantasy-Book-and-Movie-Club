@@ -1,9 +1,9 @@
 $(document).ready(function () {
 
   // Jordan
-  // Declare a Book1 variable that will have the data calling the present book. As of this moment, the author data is only there in case we need Jason needs it for a future book if he needs to add it to the query if iDreamBooks doesn't access the right url with just a query of the title
+  // Declare a Book1 variable that will have the data calling the present book. As of this moment, the author data is only there in case needed for a future book.
   var Book1 = {
-    // I emptied these so that they could be populated with meetup api data(Jason)
+
     title: "",
     author: ""
   }
@@ -63,11 +63,7 @@ $(document).ready(function () {
     //this will pause the carousel when after it loads and displays the book1
     // $('.carousel').carousel('pause');
   }
-  // This function call is commented out because I moved it into snipFunction below so that it could occur after Meetup api has had time to respond
-  // displayBook1Review(Book1);
 
-  //function for displaying the 
-  // Jordan
   function displayBook2Review() {
     //I changed the queryURL http to https below b/c of an insecure XMLHttpRequest error
     var queryURL = "https://idreambooks.com/api/books/reviews.json?q=" + Book2.title + "+" + Book2.author + "&key=36ecbc8d8618c9f56345cf3e322fa1355b25fc32"
@@ -113,7 +109,7 @@ $(document).ready(function () {
     //this will pause the carousel when after it loads and displays the book1
     // $('.carousel').carousel('pause');
   }
-  // displayBook2Review();
+  
 
   function displayBookRecentReview() {
     //I changed the queryURL http to https below b/c of an insecure XMLHttpRequest error
@@ -158,7 +154,7 @@ $(document).ready(function () {
     //this will pause the carousel when after it loads and displays the book1
     // $('.carousel').carousel('pause');
   }
-  //the following line calls this function to run, but it will actually be called by Jason's relevant snip function, so once his snip function is in the code and calls this function to run, we can comment the following line out!
+  // Calls function
   displayBookRecentReview();
 
   function displayBookWaybackReview() {
@@ -206,7 +202,7 @@ $(document).ready(function () {
     //this will pause the carousel when after it loads and displays the book1
     // $('.carousel').carousel('pause');
   }
-  //the following line calls this function to run, but it will actually be called by Jason's relevant snip function, so once his snip function is in the code and calls this function to run, we can comment the following line out!
+  // Calls function
   displayBookWaybackReview();
 
 
@@ -283,9 +279,10 @@ $(document).ready(function () {
   // variable for mettup secure key for next meeting 
   var MeetupAPISignedNextMeetupKey = "https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_urlname=Central-Jersey-Sci-Fi-Fantasy-Book-and-Movie-Club&page=200&fields=&order=time&desc=false&status=upcoming&sig_id=3331796&sig=4e946097cff58f9b643141d9dc9b3d33b2bb73ce";
 
-  // magic Alex stuff (runs request though server to get past cors stuff
+  // Alex heroku app to avoid cors error.
   var corsURL = `https://alex-rosencors.herokuapp.com/?url=${MeetupAPISignedNextMeetupKey}`;
 
+  // Meetup ajax call to get meetup titles and date of next
   $.ajax({
     url: corsURL,
     method: "GET"
@@ -328,10 +325,12 @@ $(document).ready(function () {
   var googlePagination3 = "";
   var googlePagination4 = "";
 
+  // Google books api an url
   function googleBooks() {
     var googleBooksAPI = "AIzaSyCheolDq79sZudYdTX1G6FspSWLpQXDEiI";
     var googleBooksURL = "https://www.googleapis.com/books/v1/volumes?q=" + Book1.title + Book1.author + "&key=" + googleBooksAPI;
 
+  // Google books api call
     $.ajax({
       url: googleBooksURL,
       method: "GET"
@@ -349,11 +348,13 @@ $(document).ready(function () {
       readPerDay(googlePagination);
       console.log(googlePagination);
 
+      // setting up href without isbn in case ther is no book preview available
       if (googleViewability === "NO_PAGES") {
         // href without isbn if no preview is available
         var coverImageTag = `<img class = "google-cover-images" src="${googleImageURL}" alt="cover image">`;
         $("#google-preview").append(`<a class="google-cover-image-links" href="./preview.html">${coverImageTag}<a>`);
 
+      // setting up href with isbn to be used by preview api call
       } else {
         var coverImageTag = `<img class = "google-cover-images" src="${googleImageURL}" alt="cover image">`;
         $("#google-preview").append(`<a class="google-cover-image-links" href="./preview.html?isbn=${googleISBN}">${coverImageTag}<a>`);
@@ -578,27 +579,5 @@ function init() {
 window.onload = init;
 window.onresize = init;
 // end background code
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // <!-- priyesh -->
