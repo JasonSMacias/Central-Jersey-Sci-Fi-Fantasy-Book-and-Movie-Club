@@ -272,6 +272,7 @@ html {
   overflow: hidden;
   position: relative;
   background: -webkit-radial-gradient(center, #000046 0%, #000 60%);
+  color: white;
 }
 
 ::after,
