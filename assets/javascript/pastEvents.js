@@ -1,3 +1,8 @@
+var station11 = {
+  title: "Station+11",
+  author: "Emily+St.+John+Mandel"
+
+};
 var uprootBk = {
   title: "Uprooted",
   author: "Naomi+Novik"
@@ -16,4 +21,4 @@ var borneBk = {
   author: "Jeff+VanderMeer"
 };
 
-var pastBooks = [uprootBk, bookofBk, borderBk, borneBk];
+var pastBooks = [station11, uprootBk, bookofBk, borderBk, borneBk];

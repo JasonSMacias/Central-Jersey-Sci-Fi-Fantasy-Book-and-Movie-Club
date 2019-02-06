@@ -290,16 +290,25 @@ $(document).ready(function () {
     console.log(response);
     meetings = response;
     console.log(meetings.results[0].name);
-    console.log(meetings.results[1].name);
+    // console.log(meetings.results[1].name);
     meetupName = meetings.results[0].name;
-    meetupName2 = meetings.results[1].name;
+    // setting if/then for when there is no meetupName2
+    if (meetings.results[1]){
+      meetupName2 = meetings.results[1].name;
+    }
+    else {
+      meetupName2 = "Imaginary Meetup - Jesus on Mars, by Philip Jose Farmer";
+    };
+    
     // Adding a variable to take in the date of the next meeting in unix
     time = meetings.results[0].time;
     console.log("This is the time in unix " + time);
     // Sending the time, the date of the next meeting to waitForTime function
-
     console.log("interior Ajax meetupName value " + meetupName);
-    waitForTime(time, meetupName, meetupName2);
+      waitForTime(time, meetupName, meetupName2);
+  }).catch(function(err){
+    
+    throw err;
   });
 
 
@@ -353,9 +362,9 @@ $(document).ready(function () {
         // href without isbn if no preview is available
         var coverImageTag = `<img class = "google-cover-images" src="${googleImageURL}" alt="cover image">`;
         $("#google-preview").append(`<a class="google-cover-image-links" href="./preview.html">${coverImageTag}<a>`);
-
+      }
       // setting up href with isbn to be used by preview api call
-      } else {
+       else {
         var coverImageTag = `<img class = "google-cover-images" src="${googleImageURL}" alt="cover image">`;
         $("#google-preview").append(`<a class="google-cover-image-links" href="./preview.html?isbn=${googleISBN}">${coverImageTag}<a>`);
 
@@ -384,7 +393,15 @@ $(document).ready(function () {
       googlePagination2 = response.items[0].volumeInfo.pageCount;
       console.log(googlePagination2);
       var coverImageTag = `<img class = "google-cover-images" src="${googleImageURL2}" alt="cover image">`;
-      $("#google-preview-upcoming").append(`<a class="google-cover-image-links" href="./preview.html?isbn=${googleISBN2}">${coverImageTag}<a>`);
+
+      if (googleViewability2 === "NO_PAGES") {
+        // href without isbn if no preview is available
+        $("#google-preview-upcoming").append(`<a class="google-cover-image-links" href="./preview.html">${coverImageTag}<a>`);
+      }
+      // setting up href with isbn to be used by preview api call
+       else {
+        $("#google-preview-upcoming").append(`<a class="google-cover-image-links" href="./preview.html?isbn=${googleISBN2}">${coverImageTag}<a>`);
+      };
     });
   };
 
@@ -408,7 +425,15 @@ $(document).ready(function () {
       googlePagination3 = response.items[0].volumeInfo.pageCount;
       console.log(googlePagination3);
       var coverImageTag = `<img class = "google-cover-images" src="${googleImageURL3}" alt="cover image">`;
-      $("#google-preview-recent").append(`<a class="google-cover-image-links" href="./preview.html?isbn=${googleISBN3}">${coverImageTag}<a>`);
+
+      if (googleViewability3 === "NO_PAGES") {
+        // href without isbn if no preview is available
+        $("#google-preview-recent").append(`<a class="google-cover-image-links" href="./preview.html">${coverImageTag}<a>`);
+      }
+      // setting up href with isbn to be used by preview api call
+       else {
+        $("#google-preview-recent").append(`<a class="google-cover-image-links" href="./preview.html?isbn=${googleISBN3}">${coverImageTag}<a>`);
+      };
     });
   };
 
@@ -432,7 +457,17 @@ $(document).ready(function () {
       googlePagination4 = response.items[0].volumeInfo.pageCount;
       console.log(googlePagination4);
       var coverImageTag = `<img class = "google-cover-images" src="${googleImageURL4}" alt="cover image">`;
-      $("#google-preview-wayback").append(`<a class="google-cover-image-links" href="./preview.html?isbn=${googleISBN4}">${coverImageTag}<a>`);
+
+      if (googleViewability4 === "NO_PAGES") {
+        // href without isbn if no preview is available
+        $("#google-preview-wayback").append(`<a class="google-cover-image-links" href="./preview.html">${coverImageTag}<a>`);
+      }
+      // setting up href with isbn to be used by preview api call
+       else {
+        $("#google-preview-wayback").append(`<a class="google-cover-image-links" href="./preview.html?isbn=${googleISBN4}">${coverImageTag}<a>`);
+      };
+
+      
     });
   };
 
@@ -460,7 +495,10 @@ $(document).ready(function () {
 
     console.log("interior Ajax meetupName value " + meetupName);
     snipFunction(meetupName);
-    snipFunction2(meetupName2);
+    // trying to take into account that the second meetup name may not be there.
+    if (meetupName2){
+      snipFunction2(meetupName2);
+    };
   }
 
   // function to define the pages per day to read in order to be ready for the book club meeting
