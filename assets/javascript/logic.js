@@ -509,7 +509,7 @@ $(document).ready(function () {
     tDiffNum = parseInt(tDiff.split(" ")[1]);
     googlePagination = parseInt(googlePagination);
 
-    var pgesPerDay = (googlePagination / tDiffNum).toFixed(2);
+    var pgesPerDay = Math.round((googlePagination / tDiffNum));
     console.log("The reader should read " + pgesPerDay + " pages per day");
 
     $("#pagesPerDay").append(pgesPerDay);
@@ -561,20 +561,20 @@ $(document).ready(function () {
   //-------END---Priyesh Submit A READ BUTTON AND FIREBASE CODE---------
 });
 // --------------------Start---Logo Animation--------------------
-$(".grimg, .muimg").rotate({
-  bind: {
-    mouseover: function () {
-      $(this).rotate({
-        animateTo: 360
-      })
-    },
-    mouseout: function () {
-      $(this).rotate({
-        animateTo: 0
-      })
-    }
-  }
-});
+// $(".grimg, .muimg").rotate({
+//   bind: {
+//     mouseover: function () {
+//       $(this).rotate({
+//         animateTo: 360
+//       })
+//     },
+//     mouseout: function () {
+//       $(this).rotate({
+//         animateTo: 0
+//       })
+//     }
+//   }
+// });
 
 // --------------------End---Logo Animation--------------------
 
