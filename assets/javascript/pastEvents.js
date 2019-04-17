@@ -1,3 +1,8 @@
+const nil = {
+  title: "Nil",
+  author: "Lynn+Matson",
+};
+
 const lagoon = {
   title: "Lagoon",
   author: "Nnedi+Okorafor",
@@ -26,4 +31,4 @@ var borneBk = {
   author: "Jeff+VanderMeer"
 };
 
-var pastBooks = [lagoon, station11, uprootBk, bookofBk, borderBk, borneBk];
+var pastBooks = [nil, lagoon, station11, uprootBk, bookofBk, borderBk, borneBk];
