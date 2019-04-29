@@ -1,3 +1,9 @@
+const traitorsBlade = {
+  title: "Traitor's Blade",
+  author: "Sebastien+de+Castell",
+
+}
+
 const nil = {
   title: "Nil",
   author: "Lynn+Matson",
@@ -31,4 +37,4 @@ var borneBk = {
   author: "Jeff+VanderMeer"
 };
 
-var pastBooks = [nil, lagoon, station11, uprootBk, bookofBk, borderBk, borneBk];
+var pastBooks = [traitorsBlade, nil, lagoon, station11, uprootBk, bookofBk, borderBk, borneBk];
